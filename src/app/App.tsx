@@ -11,6 +11,7 @@ const App: FC = () => (
     <Route path="/" element={<Layout />}>
       <Route index element={<CitySearch />} />
       <Route path=":cityName" element={<CityInfo />} />
+      <Route path="404" element={<NotFound />} />
     </Route>
     <Route path="*" element={<NotFound />} />
   </Routes>
