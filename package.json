@@ -1,5 +1,6 @@
 {
   "name": "js-pro-hw-9",
+  "homepage": "https://ivan-pl.github.io/js-pro-hw-9",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -28,7 +29,9 @@
     "eject": "react-scripts eject",
     "lint": "prettier --check . && eslint --ext .js,.jsx,.tsx,.ts .",
     "lint:fix": "prettier --write . && eslint --fix --ext .js,.jsx,.tsx,.ts .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
