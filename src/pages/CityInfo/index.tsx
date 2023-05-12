@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Space, Button, message, Spin } from "antd";
+import { Space, Button, message, Divider, List } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 import getCityCoords from "./api/getCityCoords";
 import getWeather from "./api/getWeather";
@@ -41,9 +42,18 @@ const CityInfo: FC = () => {
       >
         Search
       </Button>
-      {cityName}
-      {loading && <Spin />}
-      {weather && weather[0].temp}
+      <Divider orientation="left">Forecast</Divider>
+      <List
+        header={cityName}
+        bordered
+        dataSource={weather}
+        loading={loading}
+        renderItem={(item) => (
+          <List.Item>
+            {moment(item.date).format("MMMM Do hh:mm")} <b>{item.temp} °C</b>
+          </List.Item>
+        )}
+      />
     </Space>
   );
 };
