@@ -7,6 +7,7 @@ import moment from "moment";
 import getCityCoords from "./api/getCityCoords";
 import getWeather from "./api/getWeather";
 import type { ReturnResponse as WeatherInfo } from "./api/getWeather";
+import { setCityWeather, getCityWeather } from "./storage";
 
 const CityInfo: FC = () => {
   const { cityName } = useParams();
@@ -21,8 +22,15 @@ const CityInfo: FC = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const { lat, lon } = await getCityCoords(cityName);
-        const weatherData = await getWeather(lon, lat);
+        let weatherData = getCityWeather(cityName);
+        if (
+          !weatherData ||
+          weatherData[0].date.getDate() !== new Date().getDate()
+        ) {
+          const { lat, lon } = await getCityCoords(cityName);
+          weatherData = await getWeather(lon, lat);
+          setCityWeather(cityName, weatherData);
+        }
         setWeather(weatherData);
         setLoading(false);
       } catch (err) {
